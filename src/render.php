@@ -1,5 +1,6 @@
 <?php
 $label = esc_html($attributes['label'] ?? '');
+$color_label = esc_attr($attributes['labelColor'] ?? '#000');
 $menu_slug = esc_attr($attributes['menuSlug'] ?? '');
 $justify_menu = esc_attr($attributes['justifyMenu'] ?? '');
 $menu_width = esc_attr($attributes['width'] ?? 'content');
@@ -16,7 +17,7 @@ $toggle_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" widt
 
 <li <?php echo $wrapper_attributes; ?> data-wp-interactive='{"namespace": "hm-blocks/hm-mega-menu-block" }' data-wp-context='{ "menuOpenedBy": {} }' data-wp-on--keydown="actions.handleMenuKeydown" data-wp-watch="callbacks.initMenu">
 
-	<button class="wp-block-hm-mega-menu__toggle" data-wp-on--click="actions.toggleMenuOnClick" data-wp-bind--aria-expanded="state.isMenuOpen">
+	<button class="wp-block-hm-mega-menu__toggle" data-wp-on--click="actions.toggleMenuOnClick" data-wp-bind--aria-expanded="state.isMenuOpen" style="color:<?php echo $color_label; ?>">
 		<?php echo $label; ?><span class="wp-block-hm-mega-menu__toggle-icon"><?php echo $toggle_icon; ?></span>
 	</button>
 

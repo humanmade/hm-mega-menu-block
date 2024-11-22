@@ -12,6 +12,9 @@
 		"label": {
 			"type": "string"
 		},
+		"labelColor": {
+			"type": "string"
+		},
 		"description": {
 			"type": "string"
 		},

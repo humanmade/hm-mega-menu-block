@@ -16,6 +16,7 @@ import {
 	ComboboxControl,
 	PanelBody,
 	TextControl,
+	ColorPalette,
 	__experimentalHStack as HStack, //eslint-disable-line
 	__experimentalToggleGroupControl as ToggleGroupControl, //es-lint-disable
 	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon //es-lint-disable
@@ -32,6 +33,7 @@ import {
 export default function Edit( { attributes, setAttributes } ) {
 	const {
 		label,
+		labelColor,
 		description,
 		menuSlug,
 		justifyMenu,
@@ -63,7 +65,8 @@ export default function Edit( { attributes, setAttributes } ) {
 	const hasMenus = menuOptions.length > 0;
 
 	const blockProps = useBlockProps( {
-		className: 'wp-block-navigation-item wp-block-hm-mega-menu__toggle'
+		className: 'wp-block-navigation-item wp-block-hm-mega-menu__toggle',
+		style: { color: labelColor || 'inherit' }, 
 		}
 	);
 
@@ -128,6 +131,12 @@ export default function Edit( { attributes, setAttributes } ) {
 						}
 						autoComplete="off"
 					/>
+					 <ColorPalette
+                        label={ __( 'Label Color', 'hm-mega-menu-block' ) }
+                        value={ labelColor }
+                        onChange={ ( colorValue ) => setAttributes( { labelColor: colorValue } ) }
+                        clearable={ true }
+                    />
 					<ComboboxControl
 						label={ __( 'Menu Template', 'mega-block-menu' ) }
 						value={ menuSlug }
@@ -252,4 +261,3 @@ export default function Edit( { attributes, setAttributes } ) {
 		</>
 	);
 }
-	
