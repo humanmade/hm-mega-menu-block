@@ -1,0 +1,23 @@
+.hm-mega-menu__settings-panel {
+
+    // The Combobox control is placed inside a div, so this fixes some spacing issues.
+    .settings-panel__description {
+        margin-top: 24px;
+    }
+
+    .components-notice {
+        margin: 10px 0 0;
+    }
+
+    .components-notice__content {
+        margin-right: 0;
+    }
+}
+
+.hm-mega-menu__layout-panel {
+    .components-h-stack {
+        &>.components-base-control {
+            margin-bottom: 0;
+        }
+    }
+}
