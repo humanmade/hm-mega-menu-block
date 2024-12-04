@@ -1,0 +1,19 @@
+{
+    "name": "humanmade/hm-mega-menu-block",
+    "description": "A reusable Gutenberg block for creating mega menus in WordPress.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "HumanMade\\MegaMenuBlock\\": "src/"
+        }
+    },
+    "extra": {
+        "wordpress-plugin": true
+    },
+    "minimum-stability": "stable"
+}
