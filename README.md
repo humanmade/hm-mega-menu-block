@@ -6,7 +6,9 @@ This guide explains how to create and customize a mega menu using the HM Mega Me
 
 ---
 
-## Step 1: Install and Activate the HM Mega Menu Block Plugin
+## Installation and usage
+
+### Step 1: Install and Activate the HM Mega Menu Block Plugin
 1. **Install the Plugin**:
    - If the plugin is not installed yet, upload or install it from the plugin directory.
 2. **Activate the Plugin**:
@@ -14,7 +16,7 @@ This guide explains how to create and customize a mega menu using the HM Mega Me
 
 ---
 
-## Step 2: Add a New Mega Menu Template Part
+### Step 2: Add a New Mega Menu Template Part
 1. **Open the Site Editor**:
    - Go to **Appearance > Editor** to access the block editor.
 2. **Create a New Template Part**:
@@ -24,7 +26,7 @@ This guide explains how to create and customize a mega menu using the HM Mega Me
 
 ---
 
-## Step 3: Build the Mega Menu Layout
+### Step 3: Build the Mega Menu Layout
 1. **Add Groups**:
    - In the newly created template part, use **Group** blocks to structure the menu.
    - Add nested groups for creating multi-level menus.
@@ -38,7 +40,7 @@ This guide explains how to create and customize a mega menu using the HM Mega Me
 
 ---
 
-## Step 4: Link the Mega Menu to the Header
+### Step 4: Link the Mega Menu to the Header
 1. **Edit the Header Template Part**:
    - In the Site Editor, open the **Header** template part.
 2. **Insert the HM Mega Menu Block**:
@@ -49,13 +51,13 @@ This guide explains how to create and customize a mega menu using the HM Mega Me
 
 ---
 
-## Step 5: Test the Mega Menu
+### Step 5: Test the Mega Menu
 1. **Preview on the Front-End**:
    - Visit your site's homepage to see the mega menu in action.
 
 ---
 
-## Step 6: Make Final Adjustments
+### Step 6: Make Final Adjustments
 1. **Fix Positioning Issues**:
    - Ensure the mega menu is properly aligned and sticky (if needed).
 2. **Enhance Styling**:
@@ -69,3 +71,14 @@ This guide explains how to create and customize a mega menu using the HM Mega Me
 
 This plugin provides a flexible, code-light way to build and customize mega menus in WordPress!
 
+## Release Process
+
+Merges to `main` will automatically build to the `release` branch.
+
+Commits in the `release` branch may be [tagged for installation via packagist](https://packagist.org/packages/humanmade/hm-mega-menu-block) and [composer](http://getcomposer.org/), and optionally marked as releases in GitHub for download. A project may also be set up to track the `dev-release` branch to always pull in the latest built beta version.
+
+## Changelog
+
+### 1.0.0
+
+Initial Release.
