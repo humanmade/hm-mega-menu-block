@@ -1,4 +1,4 @@
-name: Production Release
+name: Build to "release" branch
 
 on:
   push:
