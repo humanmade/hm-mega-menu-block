@@ -79,6 +79,6 @@ Commits in the `release` branch may be [tagged for installation via packagist](h
 
 ## Changelog
 
-### 1.0.0
+### 1.0.0 / 1.0.1
 
-Initial Release.
+Initial Release. v1.0.1 created to work around a mis-targeted tag pushed to Composer.
