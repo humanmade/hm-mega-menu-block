@@ -18,6 +18,7 @@
 		"[^.]*"
 	],
 	"dependencies": {
+		"@wordpress/icons": "^10.17.0",
 		"@wordpress/interactivity": "^6.11.0"
 	},
 	"devDependencies": {
