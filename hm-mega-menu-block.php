@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Hm Mega Menu Block
+ * Plugin Name:       HM Mega Menu Block
  * Description:       A megamenu block.
  * Version:           1.0
  * Requires at least: 6.5
