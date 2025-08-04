@@ -32,15 +32,15 @@ add_action( 'init', 'create_block_hm_mega_menu_block_block_init' );
  * Registers menu template part location.
  */
 function hm_mega_menu_template_part_areas( array $areas ) {
-		$areas[] = [
-			'area' => 'menu',
-			'area_tag' => 'div',
-			'description' => __('Menu templates are used to create sections for a mega menu', 'hm-mega-menu-block'),
-			'icon' => 'layout',
-			'label' => __('Megamenu', 'hm-mega-menu-block')
-		];
+	$areas[] = [
+		'area' => 'menu',
+		'area_tag' => 'div',
+		'description' => __( 'Menu templates are used to create sections for a mega menu', 'hm-mega-menu-block' ),
+		'icon' => 'layout',
+		'label' => __( 'Megamenu', 'hm-mega-menu-block' ),
+	];
 
-		return $areas;
+	return $areas;
 }
 
-add_filter('default_wp_template_part_areas', 'hm_mega_menu_template_part_areas');
+add_filter( 'default_wp_template_part_areas', 'hm_mega_menu_template_part_areas' );
