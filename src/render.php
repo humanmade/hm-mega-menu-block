@@ -15,7 +15,7 @@ $close_icon  = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" widt
 $toggle_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false" fill="none"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg>';
 ?>
 
-<li <?php echo $wrapper_attributes; ?> data-wp-interactive='{"namespace": "hm-blocks/hm-mega-menu-block" }' data-wp-context='{ "menuOpenedBy": {} }' data-wp-on--keydown="actions.handleMenuKeydown" data-wp-watch="callbacks.initMenu">
+<li <?php echo $wrapper_attributes; ?> data-wp-interactive='{"namespace": "hm-blocks/hm-mega-menu-block" }' data-wp-context='{ "menuOpenedBy": {} }' data-wp-on-document--keydown="actions.handleMenuKeydown" data-wp-on-document--click="actions.handleOutsideClick" data-wp-watch="callbacks.initMenu">
 
 	<button class="wp-block-hm-mega-menu__toggle" data-wp-on--click="actions.toggleMenuOnClick" data-wp-bind--aria-expanded="state.isMenuOpen" style="color:<?php echo $color_label; ?>">
 		<?php echo $label; ?><span class="wp-block-hm-mega-menu__toggle-icon"><?php echo $toggle_icon; ?></span>
