@@ -79,6 +79,12 @@ Commits in the `release` branch may be [tagged for installation via packagist](h
 
 ## Changelog
 
+### 1.1.1
+
+- Adds menu close when user presses escape key when the menu is not in focus.
+- Adds menu close when user clicks outside of the menu.
+- Adds menu close when another menu is opened.
+
 ### 1.0.0 / 1.0.1
 
-Initial Release. v1.0.1 created to work around a mis-targeted tag pushed to Composer.
+- Initial Release. v1.0.1 created to work around a mis-targeted tag pushed to Composer.

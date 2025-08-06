@@ -1,2 +1,6 @@
+composer.lock
 /build
 /node_modules
+/vendor
+.DS_Store
+.history
