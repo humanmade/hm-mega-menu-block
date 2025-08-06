@@ -6,16 +6,14 @@ import { store, getContext, getElement } from '@wordpress/interactivity';
 const { state, actions } = store('hm-blocks/hm-mega-menu-block', {
 	state: {
 		get isMenuOpen() {
-			return (
-				Object.values(state.menuOpenedBy).filter(Boolean).length > 0
-			)
+			return Object.values(state.menuOpenedBy).filter(Boolean).length > 0;
 		},
 
 		get menuOpenedBy() {
 			const context = getContext();
 
 			return context.menuOpenedBy;
-		}
+		},
 	},
 
 	actions: {
@@ -24,8 +22,7 @@ const { state, actions } = store('hm-blocks/hm-mega-menu-block', {
 			const { ref } = getElement();
 
 			if (state.menuOpenedBy.click || state.menuOpenedBy.focus) {
-				actions.closeMenu('click');
-				actions.closeMenu('focus');
+				actions.closeMenuOnClick();
 			} else {
 				context.previousFocus = ref;
 				actions.openMenu('click');
@@ -41,10 +38,20 @@ const { state, actions } = store('hm-blocks/hm-mega-menu-block', {
 			if (state.menuOpenedBy.click) {
 				// If Escape close the menu.
 				if (event?.key === 'Escape') {
-					actions.closeMenu('click');
-					actions.closeMenu('focus');
+					actions.closeMenuOnClick();
 				}
 			}
+		},
+
+		handleOutsideClick(event) {
+			const context = getContext();
+			const megaMenu = context?.megaMenu;
+
+			if (!megaMenu || megaMenu.contains(event.target)) {
+				return;
+			}
+
+			actions.closeMenuOnClick();
 		},
 
 		openMenu(menuOpenedOn = 'click') {
@@ -57,9 +64,7 @@ const { state, actions } = store('hm-blocks/hm-mega-menu-block', {
 
 			// Reset the menu reference and button focus when closed.
 			if (!state.isMenuOpen) {
-				if (
-					context.megaMenu?.contains(window.document.activeElement)
-				) {
+				if (context.megaMenu?.contains(window.document.activeElement)) {
 					context.previousFocus?.focus();
 				}
 				context.previousFocus = null;
