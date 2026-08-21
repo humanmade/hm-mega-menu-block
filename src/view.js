@@ -54,6 +54,17 @@ const { state, actions } = store('hm-blocks/hm-mega-menu-block', {
 			actions.closeMenuOnClick();
 		},
 
+		handleOutsideFocus( event ) {
+			const context = getContext();
+			const megaMenu = context?.megaMenu;
+
+			if ( ! megaMenu || megaMenu.contains( event.target ) ) {
+				return;
+			}
+
+			actions.closeMenuOnClick();
+		},
+
 		openMenu(menuOpenedOn = 'click') {
 			state.menuOpenedBy[menuOpenedOn] = true;
 		},

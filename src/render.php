@@ -8,6 +8,19 @@ $menu_width = esc_attr($attributes['width'] ?? 'content');
 $menu_classes  = 'hm-mega-menu wp-block-hm-mega-menu__menu-container';
 $menu_classes .= ' menu-width-' . $menu_width;
 $menu_classes .= $justify_menu ? ' menu-justified-' . $justify_menu : '';
+$menu_id       = wp_unique_id( 'hm-mega-menu-panel-' );
+
+wp_interactivity_state(
+	'hm-blocks/hm-mega-menu-block',
+	[
+		'isMenuOpen' => static function (): bool {
+			$context        = wp_interactivity_get_context();
+			$menu_opened_by = $context['menuOpenedBy'] ?? [];
+
+			return is_array( $menu_opened_by ) && (bool) array_filter( $menu_opened_by );
+		},
+	]
+);
 
 $wrapper_attributes = get_block_wrapper_attributes();
 
@@ -15,13 +28,13 @@ $close_icon  = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" widt
 $toggle_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false" fill="none"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg>';
 ?>
 
-<li <?php echo $wrapper_attributes; ?> data-wp-interactive='{"namespace": "hm-blocks/hm-mega-menu-block" }' data-wp-context='{ "menuOpenedBy": {} }' data-wp-on-document--keydown="actions.handleMenuKeydown" data-wp-on-document--click="actions.handleOutsideClick" data-wp-watch="callbacks.initMenu">
+<li <?php echo $wrapper_attributes; ?> data-wp-interactive='{"namespace": "hm-blocks/hm-mega-menu-block" }' data-wp-context='{ "menuOpenedBy": {} }' data-wp-on-document--keydown="actions.handleMenuKeydown" data-wp-on-document--click="actions.handleOutsideClick" data-wp-on-document--focusin="actions.handleOutsideFocus" data-wp-watch="callbacks.initMenu">
 
-	<button class="wp-block-hm-mega-menu__toggle" data-wp-on--click="actions.toggleMenuOnClick" data-wp-bind--aria-expanded="state.isMenuOpen" style="color:<?php echo $color_label; ?>">
+	<button aria-controls="<?php echo esc_attr( $menu_id ); ?>" aria-expanded="false" class="wp-block-hm-mega-menu__toggle" data-wp-on--click="actions.toggleMenuOnClick" data-wp-bind--aria-expanded="state.isMenuOpen" style="color:<?php echo $color_label; ?>">
 		<?php echo $label; ?><span class="wp-block-hm-mega-menu__toggle-icon"><?php echo $toggle_icon; ?></span>
 	</button>
 
-	<div class="<?php echo $menu_classes; ?>">
+	<div class="<?php echo $menu_classes; ?>" id="<?php echo esc_attr( $menu_id ); ?>">
 		<?php echo block_template_part($menu_slug); ?>
 
 		<button aria-label="<?php echo __('Close menu', 'mega-menu'); ?>" class="menu-container__close-button" data-wp-on--click="actions.closeMenuOnClick" type="button">
