@@ -79,6 +79,11 @@ Commits in the `release` branch may be [tagged for installation via packagist](h
 
 ## Changelog
 
+### 1.1.2
+
+- Connects each disclosure button to its panel and keeps its expanded state synchronized.
+- Closes an open menu when keyboard focus leaves it while preserving Escape focus restoration.
+
 ### 1.1.1
 
 - Adds menu close when user presses escape key when the menu is not in focus.
