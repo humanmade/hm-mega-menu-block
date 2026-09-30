@@ -8,7 +8,7 @@ jest.mock( '@wordpress/interactivity', () => ( {
 	store: jest.fn( ( namespace, definition ) => definition ),
 } ) );
 
-const { actions } = store.mock.calls[ 0 ][ 1 ];
+const { actions, callbacks } = store.mock.calls[ 0 ][ 1 ];
 
 describe( 'mega menu focus handling', () => {
 	let context;
@@ -30,6 +30,7 @@ describe( 'mega menu focus handling', () => {
 		};
 		getContext.mockReturnValue( context );
 		getElement.mockReturnValue( { ref: item } );
+		callbacks.initMenu();
 	} );
 
 	it( 'keeps the menu open while focus remains inside', () => {
@@ -69,11 +70,26 @@ describe( 'mega menu focus handling', () => {
 	} );
 
 	it( 'ignores focus changes when no menu is open', () => {
-		context.megaMenu = null;
+		actions.closeMenuOnClick();
+		context.menuOpenedBy.click = true;
+
 		actions.handleOutsideFocus( {
 			target: document.getElementById( 'outside' ),
 		} );
 
 		expect( context.menuOpenedBy.click ).toBe( true );
+	} );
+
+	it( 'does not read reactive state for a closed menu', () => {
+		// Another store's watch can move focus synchronously; any reactive
+		// read here would subscribe that watch to this menu's state.
+		actions.closeMenuOnClick();
+		getContext.mockClear();
+
+		const outside = document.getElementById( 'outside' );
+		actions.handleOutsideFocus( { target: outside } );
+		actions.handleOutsideClick( { target: outside } );
+
+		expect( getContext ).not.toHaveBeenCalled();
 	} );
 } );
