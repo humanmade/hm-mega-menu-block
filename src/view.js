@@ -3,6 +3,17 @@
  */
 import { store, getContext, getElement } from '@wordpress/interactivity';
 
+/**
+ * Open menu items, kept outside the reactive context.
+ *
+ * The document-level handlers run for every focus change on the page,
+ * including one made synchronously inside another store's watch callback
+ * (core's Navigation overlay focuses its first element from one). A reactive
+ * read in the handler would subscribe that watch to this menu's state, so
+ * opening a menu would re-run it and pull focus out of the new panel.
+ */
+const openMenus = new WeakSet();
+
 const { state, actions } = store('hm-blocks/hm-mega-menu-block', {
 	state: {
 		get isMenuOpen() {
@@ -44,10 +55,9 @@ const { state, actions } = store('hm-blocks/hm-mega-menu-block', {
 		},
 
 		handleOutsideClick(event) {
-			const context = getContext();
-			const megaMenu = context?.megaMenu;
+			const { ref } = getElement();
 
-			if (!megaMenu || megaMenu.contains(event.target)) {
+			if (!openMenus.has(ref) || ref.contains(event.target)) {
 				return;
 			}
 
@@ -55,10 +65,9 @@ const { state, actions } = store('hm-blocks/hm-mega-menu-block', {
 		},
 
 		handleOutsideFocus( event ) {
-			const context = getContext();
-			const megaMenu = context?.megaMenu;
+			const { ref } = getElement();
 
-			if ( ! megaMenu || megaMenu.contains( event.target ) ) {
+			if ( ! openMenus.has( ref ) || ref.contains( event.target ) ) {
 				return;
 			}
 
@@ -78,6 +87,7 @@ const { state, actions } = store('hm-blocks/hm-mega-menu-block', {
 				if (context.megaMenu?.contains(window.document.activeElement)) {
 					context.previousFocus?.focus();
 				}
+				openMenus.delete(context.megaMenu);
 				context.previousFocus = null;
 				context.megaMenu = null;
 			}
@@ -92,6 +102,7 @@ const { state, actions } = store('hm-blocks/hm-mega-menu-block', {
 			// Set the menu reference when initialized.
 			if (state.isMenuOpen) {
 				context.megaMenu = ref;
+				openMenus.add(ref);
 			}
 		},
 	},

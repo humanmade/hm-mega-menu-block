@@ -79,6 +79,10 @@ Commits in the `release` branch may be [tagged for installation via packagist](h
 
 ## Changelog
 
+### 1.1.3
+
+- Keeps a menu open inside the core Navigation overlay, whose focus handling previously pulled focus to its first element and closed the panel as soon as it opened.
+
 ### 1.1.2
 
 - Connects each disclosure button to its panel and keeps its expanded state synchronized.
