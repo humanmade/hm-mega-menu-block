@@ -80,6 +80,7 @@ These commands can be used to interact with the environment:
 Command | Purpose
 ---- | ----
 `npm run env:start` | Start the local environment at http://localhost:6368
+`npm run env:bootstrap` | Seed demo "Products" and "Resources" mega menus into the Twenty Twenty-Five header (safe to re-run)
 `npm run env:stop` | Turn off the local environment
 `npm run env:cli -- wp ...` | Run WP-CLI commands within the environment
 `npm run env:logs` | Open (and tail) the error logs for the application<sup>&ddagger;</sup>

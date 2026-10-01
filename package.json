@@ -7,6 +7,7 @@
 	"main": "build/index.js",
 	"scripts": {
 		"build": "wp-scripts build --experimental-modules",
+		"env:bootstrap": "npx @wordpress/env run cli -- wp eval-file wp-content/plugins/hm-mega-menu-block/bin/bootstrap-env.php",
 		"env:cli": "npx @wordpress/env run cli",
 		"env:db": "npx @wordpress/env run cli -- mysql -uroot -ppassword wordpress --host=mysql",
 		"env:destroy": "npx @wordpress/env destroy",
