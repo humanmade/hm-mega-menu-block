@@ -32,7 +32,9 @@ wp_interactivity_state(
 <li <?php echo get_block_wrapper_attributes(); ?> data-wp-interactive='{"namespace": "hm-blocks/hm-mega-menu-block" }' data-wp-context='{ "menuOpenedBy": {} }' data-wp-on-document--keydown="actions.handleMenuKeydown" data-wp-on-document--click="actions.handleOutsideClick" data-wp-on-document--focusin="actions.handleOutsideFocus" data-wp-watch="callbacks.initMenu">
 
 	<button aria-controls="<?php echo esc_attr( $menu_id ); ?>" aria-expanded="false" class="wp-block-hm-mega-menu__toggle" data-wp-on--click="actions.toggleMenuOnClick" data-wp-bind--aria-expanded="state.isMenuOpen" style="color:<?php echo esc_attr( $label_color ); ?>">
-		<?php echo esc_html( $label ); ?><span class="wp-block-hm-mega-menu__toggle-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false" fill="none"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></span>
+		<?php echo esc_html( $label ); ?><span class="wp-block-hm-mega-menu__toggle-icon">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false" fill="none"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg>
+		</span>
 	</button>
 
 	<div class="<?php echo esc_attr( $menu_classes ); ?>" id="<?php echo esc_attr( $menu_id ); ?>">
