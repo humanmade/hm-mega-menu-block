@@ -97,6 +97,11 @@ Commits in the `release` branch may be [tagged for installation via packagist](h
 
 ## Changelog
 
+### 1.1.4
+
+- Resolve PHPCS warnings where static analysis could not detect pre-sanitized values.
+- Introduce CI to run key PHPCS sniffs on pull requests going forward.
+
 ### 1.1.3
 
 - Keeps a menu open inside the core Navigation overlay, whose focus handling previously pulled focus to its first element and closed the panel as soon as it opened.
