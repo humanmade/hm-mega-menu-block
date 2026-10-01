@@ -1,0 +1,29 @@
+name: PHPCS
+
+on:
+  pull_request:
+    paths:
+      - '**.php'
+      - 'composer.json'
+      - 'phpcs.xml.dist'
+      - '.github/workflows/phpcs.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  phpcs:
+    name: "Lint PHP"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
+        with:
+          php-version: '8.2'
+          tools: composer, cs2pr
+
+      - run: composer install --no-progress --prefer-dist
+
+      - run: composer phpcs -- -q --report=checkstyle | cs2pr
