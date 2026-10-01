@@ -5,7 +5,18 @@
     "license": "GPL-2.0-or-later",
 
     "require": {
-        "php": ">=7.4"
+        "php": ">=8.2"
+    },
+    "require-dev": {
+        "humanmade/coding-standards": "^2.5"
+    },
+    "scripts": {
+        "phpcs": "phpcs"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "autoload": {
         "psr-4": {
