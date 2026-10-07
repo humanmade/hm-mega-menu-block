@@ -97,6 +97,10 @@ Commits in the `release` branch may be [tagged for installation via packagist](h
 
 ## Changelog
 
+### 1.1.5
+
+- Eliminate unwanted horizontal scrolling on long pages by using 100% max width on full-width menus instead of 100vw
+
 ### 1.1.4
 
 - Resolve PHPCS warnings where static analysis could not detect pre-sanitized values.
