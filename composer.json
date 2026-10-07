@@ -5,7 +5,8 @@
     "license": "GPL-2.0-or-later",
 
     "require": {
-        "php": ">=8.2"
+        "php": ">=8.2",
+        "composer/installers": "^2.0"
     },
     "require-dev": {
         "humanmade/coding-standards": "^2.5"
@@ -15,6 +16,7 @@
     },
     "config": {
         "allow-plugins": {
+            "composer/installers": true,
             "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
