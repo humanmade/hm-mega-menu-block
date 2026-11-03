@@ -31,6 +31,7 @@ describe( 'mega menu focus handling', () => {
 		getContext.mockReturnValue( context );
 		getElement.mockReturnValue( { ref: item } );
 		callbacks.initMenu();
+		actions.handlePointerCancel();
 	} );
 
 	it( 'keeps the menu open while focus remains inside', () => {
@@ -54,6 +55,54 @@ describe( 'mega menu focus handling', () => {
 		expect( document.activeElement ).toBe( outside );
 		expect( context.previousFocus ).toBeNull();
 		expect( context.megaMenu ).toBeNull();
+	} );
+
+	it( 'leaves focus moved by a tap to the outside click', () => {
+		// Closing on that focus collapses a stacked panel (as in the
+		// Navigation overlay) before the click, so the click misses. A tap
+		// focuses its target after pointerup, so the press lasts until click.
+		const outside = document.getElementById( 'outside' );
+
+		actions.handlePointerDown();
+		actions.handleOutsideFocus( { target: outside } );
+
+		expect( context.menuOpenedBy.click ).toBe( true );
+
+		actions.handleOutsideClick( { target: outside } );
+
+		expect( context.menuOpenedBy.click ).toBe( false );
+	} );
+
+	it( 'closes on outside focus again once the press has clicked', () => {
+		const outside = document.getElementById( 'outside' );
+
+		actions.handlePointerDown();
+		actions.handleOutsideClick( { target: item } );
+		actions.handleOutsideFocus( { target: outside } );
+
+		expect( context.menuOpenedBy.click ).toBe( false );
+	} );
+
+	it( 'closes on outside focus again after a cancelled press', () => {
+		actions.handlePointerDown();
+		actions.handlePointerCancel();
+
+		actions.handleOutsideFocus( {
+			target: document.getElementById( 'outside' ),
+		} );
+
+		expect( context.menuOpenedBy.click ).toBe( false );
+	} );
+
+	it( 'treats a key press as keyboard focus even if a press never clicked', () => {
+		actions.handlePointerDown();
+		actions.handleMenuKeydown( { key: 'Tab' } );
+
+		actions.handleOutsideFocus( {
+			target: document.getElementById( 'outside' ),
+		} );
+
+		expect( context.menuOpenedBy.click ).toBe( false );
 	} );
 
 	it( 'returns focus to the toggle when Escape closes the menu', () => {

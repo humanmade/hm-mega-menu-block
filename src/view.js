@@ -14,6 +14,17 @@ import { store, getContext, getElement } from '@wordpress/interactivity';
  */
 const openMenus = new WeakSet();
 
+/**
+ * Whether a press is in progress, so focus it moves is left to the outside click.
+ *
+ * A press focuses its target before the click: on pointerdown for a mouse, and
+ * after pointerup for a tap. Closing the menu at that point collapses a stacked
+ * panel (as in the Navigation overlay), the items below move up, and the click
+ * lands on whatever is now under the pointer. The press ends at the click, or
+ * at pointercancel when a touch turns into a scroll.
+ */
+let isPointerDown = false;
+
 const { state, actions } = store('hm-blocks/hm-mega-menu-block', {
 	state: {
 		get isMenuOpen() {
@@ -46,6 +57,9 @@ const { state, actions } = store('hm-blocks/hm-mega-menu-block', {
 		},
 
 		handleMenuKeydown(event) {
+			// Focus that follows a key press is keyboard focus.
+			isPointerDown = false;
+
 			if (state.menuOpenedBy.click) {
 				// If Escape close the menu.
 				if (event?.key === 'Escape') {
@@ -57,6 +71,9 @@ const { state, actions } = store('hm-blocks/hm-mega-menu-block', {
 		handleOutsideClick(event) {
 			const { ref } = getElement();
 
+			// The press is over; later focus changes are handled again.
+			isPointerDown = false;
+
 			if (!openMenus.has(ref) || ref.contains(event.target)) {
 				return;
 			}
@@ -67,11 +84,23 @@ const { state, actions } = store('hm-blocks/hm-mega-menu-block', {
 		handleOutsideFocus( event ) {
 			const { ref } = getElement();
 
-			if ( ! openMenus.has( ref ) || ref.contains( event.target ) ) {
+			if (
+				isPointerDown ||
+				! openMenus.has( ref ) ||
+				ref.contains( event.target )
+			) {
 				return;
 			}
 
 			actions.closeMenuOnClick();
+		},
+
+		handlePointerDown() {
+			isPointerDown = true;
+		},
+
+		handlePointerCancel() {
+			isPointerDown = false;
 		},
 
 		openMenu(menuOpenedOn = 'click') {
