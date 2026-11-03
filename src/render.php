@@ -29,7 +29,7 @@ wp_interactivity_state(
 );
 ?>
 
-<li <?php echo get_block_wrapper_attributes(); ?> data-wp-interactive='{"namespace": "hm-blocks/hm-mega-menu-block" }' data-wp-context='{ "menuOpenedBy": {} }' data-wp-on-document--keydown="actions.handleMenuKeydown" data-wp-on-document--click="actions.handleOutsideClick" data-wp-on-document--focusin="actions.handleOutsideFocus" data-wp-watch="callbacks.initMenu">
+<li <?php echo get_block_wrapper_attributes(); ?> data-wp-interactive='{"namespace": "hm-blocks/hm-mega-menu-block" }' data-wp-context='{ "menuOpenedBy": {} }' data-wp-on-document--keydown="actions.handleMenuKeydown" data-wp-on-document--click="actions.handleOutsideClick" data-wp-on-document--focusin="actions.handleOutsideFocus" data-wp-on-document--pointerdown="actions.handlePointerDown" data-wp-on-document--pointercancel="actions.handlePointerCancel" data-wp-watch="callbacks.initMenu">
 
 	<button aria-controls="<?php echo esc_attr( $menu_id ); ?>" aria-expanded="false" class="wp-block-hm-mega-menu__toggle" data-wp-on--click="actions.toggleMenuOnClick" data-wp-bind--aria-expanded="state.isMenuOpen" style="color:<?php echo esc_attr( $label_color ); ?>">
 		<?php echo esc_html( $label ); ?><span class="wp-block-hm-mega-menu__toggle-icon">
