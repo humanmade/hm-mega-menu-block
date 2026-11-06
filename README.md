@@ -1,8 +1,9 @@
 # How to Use the HM Mega Menu Block Plugin
 
-https://www.loom.com/embed/b91514e4eb2b4d939f128ac194b13c7d?sid=58fd2f1e-5b2b-4e40-ba1a-da8210c8c54c
-
 This guide explains how to create and customize a mega menu using the HM Mega Menu Block plugin.
+
+https://github.com/user-attachments/assets/752c6214-ad3b-4dfb-a687-ad3826f2279a
+
 
 ---
 
