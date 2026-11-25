@@ -20,8 +20,10 @@ const openMenus = new WeakSet();
  * A press focuses its target before the click: on pointerdown for a mouse, and
  * after pointerup for a tap. Closing the menu at that point collapses a stacked
  * panel (as in the Navigation overlay), the items below move up, and the click
- * lands on whatever is now under the pointer. The press ends at the click, or
- * at pointercancel when a touch turns into a scroll.
+ * lands on whatever is now under the pointer. Only primary-button presses count
+ * (touch and pen report button 0). The press ends at the click, at
+ * pointercancel when a touch turns into a scroll, or in a timeout after
+ * pointerup for a press that never produces a click.
  */
 let isPointerDown = false;
 
@@ -95,8 +97,19 @@ const { state, actions } = store('hm-blocks/hm-mega-menu-block', {
 			actions.closeMenuOnClick();
 		},
 
-		handlePointerDown() {
+		handlePointerDown( event ) {
+			if ( event.button !== 0 ) {
+				return;
+			}
+
 			isPointerDown = true;
+		},
+
+		handlePointerUp() {
+			// The tap's focus and click run before the timeout, so they still see the press.
+			setTimeout( () => {
+				isPointerDown = false;
+			} );
 		},
 
 		handlePointerCancel() {

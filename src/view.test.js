@@ -63,7 +63,7 @@ describe( 'mega menu focus handling', () => {
 		// focuses its target after pointerup, so the press lasts until click.
 		const outside = document.getElementById( 'outside' );
 
-		actions.handlePointerDown();
+		actions.handlePointerDown( { button: 0 } );
 		actions.handleOutsideFocus( { target: outside } );
 
 		expect( context.menuOpenedBy.click ).toBe( true );
@@ -76,7 +76,7 @@ describe( 'mega menu focus handling', () => {
 	it( 'closes on outside focus again once the press has clicked', () => {
 		const outside = document.getElementById( 'outside' );
 
-		actions.handlePointerDown();
+		actions.handlePointerDown( { button: 0 } );
 		actions.handleOutsideClick( { target: item } );
 		actions.handleOutsideFocus( { target: outside } );
 
@@ -84,7 +84,7 @@ describe( 'mega menu focus handling', () => {
 	} );
 
 	it( 'closes on outside focus again after a cancelled press', () => {
-		actions.handlePointerDown();
+		actions.handlePointerDown( { button: 0 } );
 		actions.handlePointerCancel();
 
 		actions.handleOutsideFocus( {
@@ -94,8 +94,45 @@ describe( 'mega menu focus handling', () => {
 		expect( context.menuOpenedBy.click ).toBe( false );
 	} );
 
+	it( 'ignores a non-primary button press when closing on outside focus', () => {
+		actions.handlePointerDown( { button: 2 } );
+
+		actions.handleOutsideFocus( {
+			target: document.getElementById( 'outside' ),
+		} );
+
+		expect( context.menuOpenedBy.click ).toBe( false );
+	} );
+
+	it( 'closes on outside focus once a press that never clicked has timed out', () => {
+		jest.useFakeTimers();
+		actions.handlePointerDown( { button: 0 } );
+		actions.handlePointerUp();
+		jest.runAllTimers();
+		jest.useRealTimers();
+
+		actions.handleOutsideFocus( {
+			target: document.getElementById( 'outside' ),
+		} );
+
+		expect( context.menuOpenedBy.click ).toBe( false );
+	} );
+
+	it( 'keeps leaving focus to the click right after pointerup, before the timeout', () => {
+		jest.useFakeTimers();
+		actions.handlePointerDown( { button: 0 } );
+		actions.handlePointerUp();
+
+		actions.handleOutsideFocus( {
+			target: document.getElementById( 'outside' ),
+		} );
+		jest.useRealTimers();
+
+		expect( context.menuOpenedBy.click ).toBe( true );
+	} );
+
 	it( 'treats a key press as keyboard focus even if a press never clicked', () => {
-		actions.handlePointerDown();
+		actions.handlePointerDown( { button: 0 } );
 		actions.handleMenuKeydown( { key: 'Tab' } );
 
 		actions.handleOutsideFocus( {
