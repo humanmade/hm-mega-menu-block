@@ -12,6 +12,7 @@ import {
 import { useEntityRecords } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { createInterpolateElement } from '@wordpress/element';
+import { addQueryArgs } from '@wordpress/url';
 import {
 	ComboboxControl,
 	PanelBody,
@@ -42,9 +43,6 @@ export default function Edit( { attributes, setAttributes } ) {
 
 	const layout = useSelect( (select) => select('core/editor').getEditorSettings()?.__experimentalFeatures?.layout );
 
-	const siteUrl = useSelect( (select) => select('core').getSite().url );
-	const menuTemplateUrl = siteUrl ? siteUrl + '/wp-admin/site-editor.php?path%2Fpatterns&categoryType=wp_template_part&categoryId=menu' : '';
-
 	const { hasResolved, records } = useEntityRecords (
 		'postType',
 		'wp_template_part',
@@ -63,6 +61,22 @@ export default function Edit( { attributes, setAttributes } ) {
 	}
 
 	const hasMenus = menuOptions.length > 0;
+
+	const selectedMenu = records?.find(
+		( item ) => item.area === 'menu' && item.slug === menuSlug
+	);
+	const menuTemplateUrl = selectedMenu
+		? addQueryArgs( 'site-editor.php', {
+				postType: 'wp_template_part',
+				postId: selectedMenu.id,
+				canvas: 'edit',
+		  } )
+		: addQueryArgs( 'site-editor.php', {
+				path: '/patterns',
+				categoryType: 'wp_template_part',
+				postType: 'wp_template_part',
+				categoryId: 'menu',
+		  } );
 
 	const blockProps = useBlockProps( {
 		className: 'wp-block-navigation-item wp-block-hm-mega-menu__toggle',
@@ -147,10 +161,15 @@ export default function Edit( { attributes, setAttributes } ) {
 						help={
 							hasMenus &&
 							createInterpolateElement(
-								__(
-									'Create and modify menu templates in the <a>Site Editor</a>.',
-									'hm-mega-menu-block'
-								),
+								selectedMenu
+									? __(
+											'Edit this menu template in the <a>Site Editor</a>.',
+											'hm-mega-menu-block'
+									  )
+									: __(
+											'Create and modify menu templates in the <a>Site Editor</a>.',
+											'hm-mega-menu-block'
+									  ),
 								{
 									a: (
 										<a // eslint-disable-line
