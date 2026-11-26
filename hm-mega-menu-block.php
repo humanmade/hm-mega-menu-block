@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       HM Mega Menu Block
  * Description:       A megamenu block.
- * Version:           1.1.4
+ * Version:           1.1.5
  * Requires at least: 6.5
  * Requires PHP:      7.2
  * License:           GPL-2.0-or-later

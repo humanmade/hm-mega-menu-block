@@ -98,6 +98,11 @@ Commits in the `release` branch may be [tagged for installation via packagist](h
 
 ## Changelog
 
+### 1.1.5
+
+- Keeps taps working inside the core Navigation overlay while another menu is open. A tap no longer closes the open panel before its click lands, so the tapped item opens.
+- Updates the tutorial video in the README.
+
 ### 1.1.4
 
 - Resolve PHPCS warnings where static analysis could not detect pre-sanitized values.
