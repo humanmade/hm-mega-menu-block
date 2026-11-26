@@ -98,10 +98,15 @@ Commits in the `release` branch may be [tagged for installation via packagist](h
 
 ## Changelog
 
+### 1.1.6
+
+- Accepts `composer/installers` 1.x as well as 2.x, so sites still on 1.x can install the plugin.
+
 ### 1.1.5
 
 - Keeps taps working inside the core Navigation overlay while another menu is open. A tap no longer closes the open panel before its click lands, so the tapped item opens.
 - Updates the tutorial video in the README.
+- Requires `composer/installers`, so Composer installs the plugin into `plugins/`.
 
 ### 1.1.4
 
